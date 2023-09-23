@@ -4,6 +4,7 @@ import cors from "cors";
 import helmet from "helmet";
 import { RouterV1 } from "./interface/v1";
 import { connectDb } from "./config/db.config";
+import "reflect-metadata";
 
 async function main(): Promise<void> {
   await connectDb();
