@@ -14,3 +14,5 @@ Registro de matriz: identificador, tamaño, anomalia (true o false)
 
 Endpoint GET: /stats responde un json con las estadisticas de uso del endpoint anterior:
 count_anomalies, count_no_anomalies, ratio.
+
+npx sequelize-cli db:migrate --config dist/infrastructure/db/config.js
