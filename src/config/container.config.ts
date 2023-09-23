@@ -10,12 +10,24 @@ const repositoriesDir = path.join(
   "../infrastructure/db/repositories"
 );
 
+const servicesDir = path.join(__dirname, "../services");
+
 fs.readdirSync(repositoriesDir).forEach((file) => {
   if (file.endsWith(".js")) {
     const repository = require(path.join(repositoriesDir, file));
     const repositoryName = Object.keys(repository)[0];
     container.register(repositoryName, {
       useClass: repository[repositoryName],
+    });
+  }
+});
+
+fs.readdirSync(servicesDir).forEach((file) => {
+  if (file.endsWith(".js")) {
+    const service = require(path.join(servicesDir, file));
+    const serviceName = Object.keys(service)[0];
+    container.register(serviceName, {
+      useClass: service[serviceName],
     });
   }
 });
