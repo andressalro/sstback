@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  db:
+    image: mysql:5.7
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    env_file: ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQL_PASS
+      - MYSQL_DATABASE=$MYSQL_NAME
+    ports:
+      - $MYSQL_PORT:3306
+    volumes:
+      - db:/var/lib/mysql
+volumes:
+  db:
