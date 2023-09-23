@@ -3,8 +3,10 @@ import EnvConfig from "./config/env.config";
 import cors from "cors";
 import helmet from "helmet";
 import { RouterV1 } from "./interface/v1";
+import { connectDb } from "./config/db.config";
 
 async function main(): Promise<void> {
+  await connectDb();
   const PORT = EnvConfig.PORT || 3000;
   const server = new ServerConfig({
     port: PORT,
