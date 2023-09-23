@@ -2,6 +2,10 @@ import Express, { Request, Response, NextFunction } from "express";
 import EnvConfig from "./env.config";
 import { RequestHandler } from "express-serve-static-core";
 import { NotFoundError } from "../utils/notFoundError";
+import {
+  devMiddleware,
+  prodMiddleware,
+} from "../middleware/errorHandling.middleware";
 
 interface Router {
   baseUrl: string;
@@ -43,6 +47,7 @@ export class ServerConfig {
         next(err);
       }
     );
+    this.registerErrorHandling();
   }
 
   get port() {
@@ -66,6 +71,14 @@ export class ServerConfig {
 
   registerJSONMiddleware() {
     this.registerMiddleware(Express.json());
+    return this;
+  }
+
+  registerErrorHandling() {
+    const errorHandlingMiddleware: any =
+      EnvConfig.NODE_ENV === "development" ? devMiddleware : prodMiddleware;
+
+    this.registerMiddleware(errorHandlingMiddleware);
     return this;
   }
 
