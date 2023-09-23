@@ -1,6 +1,7 @@
 import { DataSource } from "typeorm";
-import EnvConfig from "./env.config";
-import { ErrorHandler } from "../utils/errorHandler";
+import EnvConfig from "../../config/env.config";
+import { ErrorHandler } from "../../utils/errorHandler";
+import { Anomaly } from "./entity/Anomaly";
 
 if (
   !EnvConfig.MYSQL_NAME ||
@@ -20,8 +21,8 @@ export const AppDataSource = new DataSource({
   username: EnvConfig.MYSQL_USER,
   password: EnvConfig.MYSQL_PASS,
   database: EnvConfig.MYSQL_NAME,
-  entities: [],
+  entities: [Anomaly],
   migrations: ["dist/infrastructure/db/migration/*.js"],
   synchronize: false,
-  logging: false,
+  logging: true,
 });
