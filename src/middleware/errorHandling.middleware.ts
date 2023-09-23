@@ -1,4 +1,5 @@
 import { ErrorRequestHandler, Request, Response, NextFunction } from "express";
+import { ErrorHandler } from "../utils/errorHandler";
 
 type CustomError = {
   statusCode?: number;
@@ -7,18 +8,18 @@ type CustomError = {
 };
 
 export const devMiddleware: ErrorRequestHandler = (
-  err: CustomError,
+  err: ErrorHandler,
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   const { statusCode = 500, message } = err;
   res.status(statusCode);
-  res.json(message);
+  res.json({ message });
 };
 
 export const prodMiddleware: ErrorRequestHandler = (
-  err: CustomError,
+  err: ErrorHandler,
   req: Request,
   res: Response,
   next: NextFunction
