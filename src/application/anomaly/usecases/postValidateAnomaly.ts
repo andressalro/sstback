@@ -1,12 +1,12 @@
 import { injectable } from "tsyringe";
-import { ValidateAnomaly } from "../../../domain/interfaces/anomaly.interface";
+import { IValidateAnomaly } from "../../../domain/interfaces/anomaly.interface";
 
 @injectable()
 export class PostValidateAnomaly {
   constructor() {}
 
-  async execute(body: ValidateAnomaly): Promise<any> {
+  async execute(body: IValidateAnomaly): Promise<any> {
     //Ejecutar logica de validate anomaly
-    return { success: true };
+    return { success: true, body };
   }
 }
