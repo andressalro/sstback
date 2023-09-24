@@ -5,7 +5,7 @@ export class Anomaly implements IAnomaly {
     public id: number,
     public description: string,
     public isAnomalous: boolean,
-    public createdAt: Date,
-    public updatedAt: Date
+    public createdAt?: Date,
+    public updatedAt?: Date
   ) {}
 }
