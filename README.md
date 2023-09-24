@@ -1,4 +1,4 @@
-# sstback
+# STTback
 
 Prueba Técnica STT
 
