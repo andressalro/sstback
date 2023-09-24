@@ -4,6 +4,7 @@ import { AnomalyService } from "../../../services/anomaly.service";
 import { AnomalyRepository } from "../../../infrastructure/db/repositories/anomaly.repository";
 import { Anomaly } from "../../../domain/entities/anomaly.entity";
 import { ErrorHandler } from "../../../utils/errorHandler";
+import { IValidateAnomalyResponse } from "../../../domain/interfaces/responses/anomaly.response";
 
 @injectable()
 export class PostValidateAnomaly {
@@ -12,7 +13,7 @@ export class PostValidateAnomaly {
     @inject("AnomalyRepository") private anomalyRepo: AnomalyRepository
   ) {}
 
-  async execute(body: IValidateAnomaly): Promise<any> {
+  async execute(body: IValidateAnomaly): Promise<IValidateAnomalyResponse> {
     const rows = body.dna.length;
     const cols = body.dna[0].length;
     const description = `${rows} x ${cols}`;
