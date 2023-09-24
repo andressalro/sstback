@@ -4,6 +4,7 @@ import { dnaBodySchema } from "../../domain/schemas/anomaly.schema";
 import { PostValidateAnomaly } from "./usecases/postValidateAnomaly";
 import { GetAnomalyStatistics } from "./usecases/getAnomalyStatistics";
 import { ErrorHandler } from "../../utils/errorHandler";
+import { ZodError } from "zod";
 
 @injectable()
 export class AnomalyController {
@@ -18,7 +19,7 @@ export class AnomalyController {
     try {
       return await this.GetAnomalyStatistics.execute();
     } catch (error) {
-      throw new ErrorHandler(error as any, 400);
+      throw new ErrorHandler(error as any, (error as any)?.statusCode || 400);
     }
   }
 
@@ -27,7 +28,10 @@ export class AnomalyController {
       const body = dnaBodySchema.parse(req.body);
       return await this.PostValidateAnomaly.execute(body);
     } catch (error) {
-      throw new ErrorHandler(error as any, 400);
+      if (error instanceof ZodError) {
+        throw new ErrorHandler("Validation failed", 400, error);
+      }
+      throw new ErrorHandler(error as any, (error as any)?.statusCode || 400);
     }
   }
 }

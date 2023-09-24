@@ -70,7 +70,7 @@ export class ServerConfig {
   }
 
   registerJSONMiddleware() {
-    this.registerMiddleware(Express.json());
+    this.registerMiddleware(Express.json({ limit: "30mb" }));
     return this;
   }
 
