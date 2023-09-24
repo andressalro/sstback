@@ -15,5 +15,25 @@ services:
       - $MYSQL_PORT:3306
     volumes:
       - db:/var/lib/mysql
+  stt-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file: ./.env
+    ports:
+      - $PORT:3000
+    environment:
+      - MYSQL_PORT=3306
+      - MYSQL_NAME=$MYSQL_NAME
+      - MYSQL_PASS=$MYSQL_PASS
+      - MYSQL_USER=$MYSQL_USER
+      - MYSQL_HOST=db
+      - PORT=3000
+      - NODE_ENV=$NODE_ENV
+    command: >
+      ash -c "npm start"
 volumes:
   db:

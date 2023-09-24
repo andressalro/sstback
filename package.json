@@ -8,7 +8,7 @@
     "start": "node dist/index.js",
     "clean": "rimraf dist",
     "dev": "tsc-watch --onSuccess \"node dist/index.js\"",
-    "typeorm": "typeorm-ts-node-commonjs -d src/config/data-source.ts",
+    "typeorm": "typeorm-ts-node-commonjs -d src/infrastructure/db/data-source.ts",
     "migration:show": "npx typeorm migration:show",
     "migration:create": "node scripts/migration-typeorm.js",
     "migration:revert": "npm run typeorm migration:revert",
