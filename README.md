@@ -54,22 +54,26 @@ Body: dna (matriz bidimensional)
 Caso: Detección de anomalía, responde código de estado 200 y mensaje de existencia de anomalía.
 Matriz 3x3 (horizontal)
 
-![image](https://github.com/andressalro/sstback/assets/40213377/4a2d4810-5bd9-40c1-9ac2-34bcd288ffce)
+![image](https://github.com/andressalro/sstback/assets/40213377/ba8a4d3d-725f-45e5-82b4-4bd42f9f4765)
+
 
 Matriz 4x4 (diagonal)
 
-![image](https://github.com/andressalro/sstback/assets/40213377/51cc0707-d1cd-4b85-8300-5a239e261959)
+![image](https://github.com/andressalro/sstback/assets/40213377/254cf249-b7bb-4cb4-9a58-255ac3972f62)
+
 
 Matriz 4x4 (vertical)
 
-![image](https://github.com/andressalro/sstback/assets/40213377/ddc25910-8062-4c81-bad4-0127ec8c22fc)
+![image](https://github.com/andressalro/sstback/assets/40213377/c5f21393-1c13-471f-99b9-dcc9405653c3)
+
 
 
 Caso: No se detectan anomalías, responde código de estado 403 y mensaje de no existencia de anomalía.
 
 Matriz 3x3
 
-![image](https://github.com/andressalro/sstback/assets/40213377/9782278e-f020-4edb-aa6f-78bf85478190)
+![image](https://github.com/andressalro/sstback/assets/40213377/4f873d75-21d0-46ae-9eb6-804b7e83bf72)
+
 
 
 Endpoint: visualización de estadísticas de anomalías.
@@ -78,7 +82,8 @@ Método: GET
 
 Caso: visualización de estadísticas de anomalías detectadas, no detectadas y el porcentaje de anomalías detectadas en el total de registros de anomalías.
 
-![image](https://github.com/andressalro/sstback/assets/40213377/186bf11e-df8e-46da-8de6-51be4518b1e5)
+![image](https://github.com/andressalro/sstback/assets/40213377/b1cef26f-ee78-4c7f-af0c-403048a0e5ab)
+
 
 
 ## Pruebas unitarias
@@ -99,6 +104,7 @@ Servicio de validación de anomalías:
 * Validar la no detección de anomalía, enviando una matriz sin anomalía 3x3.
 * Validar la no detección de anomalía, enviando una matriz sin anomalía 100x100.
 
-![image](https://github.com/andressalro/sstback/assets/40213377/45602169-ec95-400f-bef3-11465ee9e7c7)
+![image](https://github.com/andressalro/sstback/assets/40213377/af855c91-c129-4617-9726-f3ffe1665aaf)
+
 
 
