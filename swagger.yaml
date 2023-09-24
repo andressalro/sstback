@@ -1,0 +1,84 @@
+openapi: "3.0.0"
+info:
+  title: "Anomaly API"
+  version: "1.0.0"
+  description: "API para la detección de anomalías"
+  contact:
+    name: "Andres Salgado Rojas"
+    email: "andressalgadorojas@hotmail.com"
+servers:
+  - url: "http://localhost:3002"
+    description: "Local server"
+tags:
+  - name: "Anomaly"
+    description: "Operaciones relacionadas a anomalías"
+paths:
+  /api/v1/stats:
+    get:
+      summary: "Obtiene estadísticas de anomalías"
+      description: "Obtiene las estadisticas de las anomalías"
+      tags:
+        - "Anomaly"
+      operationId: "getStatsAnomaly"
+      responses:
+        "200":
+          description: "Estadísticas de anomalías"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count_anomalies:
+                    type: integer
+                    example: 0
+                  count_no_anomales:
+                    type: integer
+                    example: 3
+                  ratio:
+                    type: number
+                    example: 0
+
+  /api/v1/validate-anomaly:
+    post:
+      summary: "Valida una matriz para determinar si hay una anomalía"
+      description: "Valida si se presentan o no anomalías"
+      operationId: "ValidateAnomaly"
+      tags:
+        - "Anomaly"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dna:
+                  type: array
+                  items:
+                    type: array
+                    items:
+                      type: string
+                      minLength: 1
+                      maxLength: 1
+                      pattern: "[A-Z]"
+      responses:
+        "200":
+          description: "Existe una anomalía"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Exist anomaly"
+        "403":
+          description: "No existe una anomalía"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Not exist anomaly"

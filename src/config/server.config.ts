@@ -2,6 +2,9 @@ import Express, { Request, Response, NextFunction } from "express";
 import EnvConfig from "./env.config";
 import { RequestHandler } from "express-serve-static-core";
 import { NotFoundError } from "../utils/notFoundError";
+import swaggerUi from "swagger-ui-express";
+import fs from "fs";
+import yaml from "js-yaml";
 import {
   devMiddleware,
   prodMiddleware,
@@ -26,6 +29,7 @@ export class ServerConfig {
     this.app.set("env", EnvConfig.NODE_ENV);
     this.app.set("port", port);
     this.registerJSONMiddleware();
+    this.registerSwagger();
 
     middlewares?.forEach((middleware) => {
       this.registerMiddleware(middleware);
@@ -72,6 +76,18 @@ export class ServerConfig {
   registerJSONMiddleware() {
     this.registerMiddleware(Express.json({ limit: "30mb" }));
     return this;
+  }
+
+  registerSwagger() {
+    const swaggerDocument = yaml.load(
+      fs.readFileSync("./swagger.yaml", "utf8")
+    );
+
+    this.app.use(
+      "/api-docs",
+      swaggerUi.serve,
+      swaggerUi.setup(swaggerDocument as any)
+    );
   }
 
   registerErrorHandling() {
