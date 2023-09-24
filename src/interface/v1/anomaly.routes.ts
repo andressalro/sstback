@@ -26,6 +26,17 @@ const registerAnomalyRoutes = (router: Router): void => {
       }
     }
   );
+
+  router.get(
+    "/test",
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        res.json(await anomalyController.getTest(req, res));
+      } catch (error) {
+        next(error);
+      }
+    }
+  );
 };
 
 export default registerAnomalyRoutes;

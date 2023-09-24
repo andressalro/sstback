@@ -4,6 +4,7 @@ import path from "path";
 import { container } from "tsyringe";
 import { PostValidateAnomaly } from "../application/anomaly/usecases/postValidateAnomaly";
 import { GetAnomalyStatistics } from "../application/anomaly/usecases/getAnomalyStatistics";
+import { GetTest } from "../application/anomaly/usecases/getTest";
 
 const repositoriesDir = path.join(
   __dirname,
@@ -34,5 +35,6 @@ fs.readdirSync(servicesDir).forEach((file) => {
 
 container.register("PostValidateAnomaly", { useClass: PostValidateAnomaly });
 container.register("GetAnomalyStatistics", { useClass: GetAnomalyStatistics });
+container.register("GetTest", { useClass: GetTest });
 
 export { container };

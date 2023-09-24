@@ -5,6 +5,7 @@ import { PostValidateAnomaly } from "./usecases/postValidateAnomaly";
 import { GetAnomalyStatistics } from "./usecases/getAnomalyStatistics";
 import { ErrorHandler } from "../../utils/errorHandler";
 import { ZodError } from "zod";
+import { GetTest } from "./usecases/getTest";
 
 @injectable()
 export class AnomalyController {
@@ -12,7 +13,9 @@ export class AnomalyController {
     @inject("PostValidateAnomaly")
     private PostValidateAnomaly: PostValidateAnomaly,
     @inject("GetAnomalyStatistics")
-    private GetAnomalyStatistics: GetAnomalyStatistics
+    private GetAnomalyStatistics: GetAnomalyStatistics,
+    @inject("GetTest")
+    private GetTest: GetTest
   ) {}
 
   async getAnomalyStatistics(req: Request, res: Response): Promise<any> {
@@ -27,6 +30,17 @@ export class AnomalyController {
     try {
       const body = dnaBodySchema.parse(req.body);
       return await this.PostValidateAnomaly.execute(body);
+    } catch (error) {
+      if (error instanceof ZodError) {
+        throw new ErrorHandler("Validation failed", 400, error);
+      }
+      throw new ErrorHandler(error as any, (error as any)?.statusCode || 400);
+    }
+  }
+
+  async getTest(req: Request, res: Response): Promise<any> {
+    try {
+      return await this.GetTest.execute();
     } catch (error) {
       if (error instanceof ZodError) {
         throw new ErrorHandler("Validation failed", 400, error);
