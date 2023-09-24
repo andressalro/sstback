@@ -13,9 +13,13 @@ export const devMiddleware: ErrorRequestHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  const { statusCode = 500, message } = err;
-  res.status(statusCode);
-  res.json({ message });
+  const { statusCode = 500, message, formattedErrors } = err;
+  if (formattedErrors) {
+    res.status(err.statusCode).json({ message, errors: err.formattedErrors });
+  } else {
+    res.status(statusCode);
+    res.json({ message });
+  }
 };
 
 export const prodMiddleware: ErrorRequestHandler = (
